@@ -516,39 +516,39 @@ function hiddify-panel-cli() {
   hiddify-panel-run "python3 -m hiddifypanel $*"
 }
 # region installer utils
-function checkOS() {
-    # List of supported distributions
-    #supported_distros=("Ubuntu" "Debian" "Fedora" "CentOS" "Arch")
-    supported_distros=("Ubuntu")
-    # Get the distribution name and version
-    if [[ -f "/etc/os-release" ]]; then
-        source "/etc/os-release"
-        distro_name=$NAME
-        distro_version=$VERSION_ID
-    else
-        echo "Unable to determine distribution."
-        exit 1
-    fi
-    # Check if the distribution is supported
-    if [[ " ${supported_distros[@]} " =~ " ${distro_name} " ]]; then
-        echo "Your Linux distribution is ${distro_name} ${distro_version}"
-        : #no-op command
-    else
-        # Print error message in red
-        echo -e "\e[31mYour Linux distribution (${distro_name} ${distro_version}) is not currently supported.\e[0m"
-        exit 1
-    fi
+# function checkOS() {
+#     # List of supported distributions
+#     #supported_distros=("Ubuntu" "Debian" "Fedora" "CentOS" "Arch")
+#     supported_distros=("Ubuntu")
+#     # Get the distribution name and version
+#     if [[ -f "/etc/os-release" ]]; then
+#         source "/etc/os-release"
+#         distro_name=$NAME
+#         distro_version=$VERSION_ID
+#     else
+#         echo "Unable to determine distribution."
+#         exit 1
+#     fi
+#     # Check if the distribution is supported
+#     if [[ " ${supported_distros[@]} " =~ " ${distro_name} " ]]; then
+#         echo "Your Linux distribution is ${distro_name} ${distro_version}"
+#         : #no-op command
+#     else
+#         # Print error message in red
+#         echo -e "\e[31mYour Linux distribution (${distro_name} ${distro_version}) is not currently supported.\e[0m"
+#         exit 1
+#     fi
     
-    # This script only works on Ubuntu 22 and above
-    if [ "$(uname)" == "Linux" ]; then
-        version_info=$(lsb_release -rs | cut -d '.' -f 1)
-        # Check if it's Ubuntu and version is below 22
-        if [ "$(lsb_release -is)" == "Ubuntu" ] && [ "$version_info" -lt 22 ]; then
-            echo "This script only works on Ubuntu 22 and above"
-            exit
-        fi
-    fi
-}
+#     # This script only works on Ubuntu 22 and above
+#     if [ "$(uname)" == "Linux" ]; then
+#         version_info=$(lsb_release -rs | cut -d '.' -f 1)
+#         # Check if it's Ubuntu and version is below 22
+#         if [ "$(lsb_release -is)" == "Ubuntu" ] && [ "$version_info" -lt 22 ]; then
+#             echo "This script only works on Ubuntu 22 and above"
+#             exit
+#         fi
+#     fi
+# }
 function disable_panel_services() {
     # rm /etc/cron.d/hiddify_usage_update
     # rm /etc/cron.d/hiddify_auto_backup
